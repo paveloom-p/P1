@@ -1,5 +1,5 @@
-program main
-use subprograms
+program main ! Дискретное преобразование Фурье
+use subprograms ! Модуль с процедурами
 implicit none
 
 complex(8), allocatable, dimension(:) :: X, Y ! Входной и выходной массивы
