@@ -12,7 +12,7 @@ integer i, ier         ! Вспомогательные переменные
 real(8) t1, t2, t3, t4 ! Переменные времени
 
 ! Считывание количества комплексных чисел
-read(*,'()'); read(*,*) n 
+read(*,'()'); read(*,*) n
 
 ! Считывание идентификатора режима преобразования
 read(*,'(/)'); read(*,*) P
@@ -40,60 +40,60 @@ write(*,'(4x,i3,2x,e16.7,2x,e16.7)') (i, dble(X(i)), dimag(X(i)), i = 0, n-1)
     if (P .gt. 0) then
 
         write(*,'(/,4x,a,/)') 'Режим: прямое дискретное преобразование Фурье.'
-        
+
         call cpu_time(t1)
-                
+
                 call DFT(X,Y,n)
-                
+
         call cpu_time(t2)
-        
+
         write(*,'(4x,a,/)') 'Результат:'
         write(*,'(4x,2x,a,7x,a,10x,a)') 'i', 'Re(Y(i))', 'Im(Y(i))'
         write(*,'(4x,i3,2x,e16.7,2x,e16.7)') (i, dble(Y(i)), dimag(Y(i)), i = 0, n-1)
-        
+
         if (do_check .eq. 0) then
-        
+
                 call cpu_time(t3)
-        
+
                         call IDFT(Y,X,n)
-                
+
                 call cpu_time(t4)
-                
-                
+
+
                 write(*,'(/,4x,a,/)') 'Результат проверки:'
                 write(*,'(4x,2x,a,7x,a,10x,a)') 'i', 'Re(X(i))', 'Im(X(i))'
                 write(*,'(4x,i3,2x,e16.7,2x,e16.7)') (i, dble(X(i)), dimag(X(i)), i = 0, n-1)
-        
-        endif     
+
+        endif
 
 elseif (P .lt. 0) then
 
         write(*,'(/,4x,a,/)') 'Режим: обратное дискретное преобразование Фурье.'
-        
+
         call cpu_time(t1)
-                
+
                 call IDFT(X,Y,n)
-                
+
         call cpu_time(t2)
-        
+
         write(*,'(4x,a,/)') 'Результат:'
         write(*,'(4x,2x,a,7x,a,10x,a)') 'i', 'Re(Y(i))', 'Im(Y(i))'
         write(*,'(4x,i3,2x,e16.7,2x,e16.7)') (i, dble(Y(i)), dimag(Y(i)), i = 0, n-1)
 
         if (do_check .eq. 0) then
-        
+
                 call cpu_time(t3)
-        
+
                         call DFT(Y,X,n)
-                
+
                 call cpu_time(t4)
-                
-                
+
+
                 write(*,'(/,4x,a,/)') 'Результат проверки:'
                 write(*,'(4x,2x,a,7x,a,10x,a)') 'i', 'Re(X(i))', 'Im(X(i))'
                 write(*,'(4x,i3,2x,e16.7,2x,e16.7)') (i, dble(X(i)), dimag(X(i)), i = 0, n-1)
-        
-        endif 
+
+        endif
 
   else
 
